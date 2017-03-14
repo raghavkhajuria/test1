@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unthink Labs Demo - Uber Support Bot</title>
+    <link rel="stylesheet" href="static/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="static/index.js"></script>
+    <script>
+        function openTab(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</head>
+<body onload="openTab(event, 'ChatTab')">
+
+<ul class="tab">
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'ChatTab')">Chat</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Business Logic')">Business Logic</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="location.reload();">Reset</a></li>
+</ul>
+
+
+<div id="ChatTab" class="tabcontent">
+    <div class="leftbox">
+        <div class="container">
+            <div class="chat">
+                <div id="chatZone" name="chatZone">
+{#                    <div id="customer">#}
+{#                        <div id="username">Customer</div>#}
+{#                        <div id="message">Hi!</div>#}
+{##}
+{#                    </div>#}
+{#                    <div id="bot" name="bot">#}
+{#                        <div id="username">Bot</div>#}
+{#                        <div id="message">Hi!</div>#}
+{#                        <div id="score">1.0</div>#}
+{#                    </div>#}
+                </div>
+                    <input type="text" id="msg" name="msg" autofocus="true" placeholder="Type Your Meassage Here" autocomplete="off"/>
+                    <input type="button" value="submit" />
+            </div>
+        </div>
+    </div>
+    <div class="rightbox">
+        <div id="response-values">
+            <div id="intent-display">
+                Intent:
+                <div id="intent-value">
+                </div>
+            </div>
+            <div id="entitiy-display">
+                Entities:
+                <div id="entity-value">
+                </div>
+            </div>
+        </div>
+        <h2>Data values</h2>
+        <div id="data-values">
+            <form id="extract">
+                <h3>Customer Data:</h3>
+                <div id="customer">
+                    <label for="customername">Name: </label>
+                    <input type="text" name="customername" value="Rachit Jee" class="data-vars"><br>
+                    <label for="customeremail">Email: </label>
+                    <input type="email" name="customeremail" value="rachit@iit.com" class="data-vars"><br>
+                    <label for="customerphone">Phone Number: </label>
+                    <input type="tel" name="customerphone" value="9958719100" class="data-vars"><br>
+                    <label for="paymentmethod">Payment Method: </label><br>
+                    <input type="checkbox" name="paymentmethod" value="cash" class="data-vars">Cash<br>
+                    <input type="checkbox" name="paymentmethod" value="creditcard" class="data-vars">Credit Card<br>
+                    <input type="checkbox" name="paymentmethod" value="paytm" class="data-vars">Paytm<br>
+                </div>
+                <h3>Driver Data:</h3>
+                <div id="driver">
+                     <label for="drivername">Name: </label>
+                    <input type="text" name="drivername" value="Rachit Jee" class="data-vars"><br>
+                    <label for="driveremail">Email: </label>
+                    <input type="email" name="driveremail" value="rachit@iit.com" class="data-vars"><br>
+                    <label for="driverphone">Phone Number: </label>
+                    <input type="tel" name="driverphone" value="9958719100" class="data-vars"><br>
+                    <label for="driverrating">Rating: </label>
+                    <input type="number" name="driverrating" value="4.3" class="data-vars"><br>
+                    Car: <br>
+                    <label for="cartype">Car Type: </label>
+                    <input type="radio" name="cartype" value="uberx" class="data-vars">UberX
+                    <input type="radio" name="cartype" value="uberpool" class="data-vars">UberPool
+                    <input type="radio" name="cartype" value="uberblack" class="data-vars">UberBlack<br>
+                    <label for="carmodel">Model : </label>
+                    <input type="text" name="carmodel" value="Swift" class="data-vars"><br>
+                    <label for="carcolor">Color : </label>
+                    <input type="text" name="carcolor" value="White" class="data-vars"><br>
+                    <label for="registeration">Registeration number: </label>
+                    <input type="text" name="registeration" value="DL 3C 1234" class="data-vars"><br>
+                </div>
+                <h3>Trip Data:</h3>
+                <div id="trip">
+                    <label for="status">Status: </label>
+                    <input type="text" name="status" value="Cancelled" class="data-vars"><br>
+                    <label for="tripdate">Trip Date: </label>
+                    <input type="date" name="tripdate" value="2017-01-11" class="data-vars"><br>
+                    <label for="triptime">Trip Time: </label>
+                    <input type="time" name="triptime" value="14:00" class="data-vars"><br>
+                    <label for="tripcity">Trip City: </label>
+                    <input type="text" name="tripcity" value="Delhi" class="data-vars"><br>
+                    <label for="paymentmethod">Trip City: </label>
+                    <input type="radio" name="paymentmethod" value="cash" class="data-vars">Cash
+                    <input type="radio" name="paymentmethod" value="card" class="data-vars">Card
+                    <input type="radio" name="paymentmethod" value="paytm" class="data-vars">PayTM<br>
+                    <label for="triptype">Trip Type: </label>
+                    <input type="radio" name="triptype" value="uberx" class="data-vars">UberX
+                    <input type="radio" name="triptype" value="uberpool" class="data-vars">UberPool
+                    <input type="radio" name="triptype" value="uberblack" class="data-vars">UberBlack<br>
+                    <h4>Trip Events:</h4>
+                    Driver accepted the trip<br>
+                    <label for="acceptedlat">Latitude: </label>
+                    <input type="number" name="acceptedlat" class="data-vars" value="28.5272181"><br>
+                    <label for="acceptedlng">Longitude: </label>
+                    <input type="number" name="acceptedlng" class="data-vars" value="77.0688997"><br>
+                    <label for="tripacceptedtime">Trip Accepted Time: </label>
+                    <input type="time" name="tripacceptedtime" value="14:00" class="data-vars"><br>
+                    <label for="eta">ETA: </label>
+                    <input type="number" name="eta" value="12" class="data-vars"><br>
+                    Trip Start<br>
+                    <label for="startaddress">Address: </label>
+                    <input type="text" name="startaddress" value="Vasant Kunj, New Delhi" class="data-vars"><br>
+                    Trip End<br>
+                    <label for="endaddress">Address: </label>
+                    <input type="text" name="endaddress" value="M block Market, GK-2, New Delhi" class="data-vars"><br>
+                    <label for="endlat">Destination Latitude: </label>
+                    <input type="number" name="endlat" class="data-vars" value="28.5272719"><br>
+                    <label for="endlng">Destination Longitude: </label>
+                    <input type="number" name="endlng" class="data-vars" value="77.2023964"><br>
+                    <label for="actualendlat">Actual Latitude: </label>
+                    <input type="number" name="actualendlat" class="data-vars" value="28.609962"><br>
+                    <label for="actualendlng">Actual Longitude: </label>
+                    <input type="number" name="actualendlng" class="data-vars" value="77.229930"><br>
+                    Attributes:<br>
+                    <label for="calculateddistance">Calc Trip Distance: </label>
+                    <input type="number" name="calculateddistance" class="data-vars" value="15"><br>
+                    <label for="calculatedduration">Calc Trip Duration: </label>
+                    <input type="number" name="calculatedduration" class="data-vars" value="30"><br>
+                    <label for="promocodeapplied">Promocode Name: </label>
+                    <input type="text" name="promocodeapplied" value="uber4free" class="data-vars"><br>
+                    <label for="remainingeta">Remaining ETA: </label>
+                    <input type="number" name="remainingeta" value="10" class="data-vars"><br>
+                    <label for="actualdistance">Actual Trip Distance: </label>
+                    <input type="number" name="actualdistance" class="data-vars" value="16"><br>
+                    <label for="actualduration">Actual Trip Duration: </label>
+                    <input type="number" name="actualduration" class="data-vars" value="33"><br>
+                    <label for="upfrontprice">Upfront Price: </label>
+                    <input type="number" name="upfrontprice" value="120" class="data-vars"><br>
+                    <label for="actualcharge">Charged Price: </label>
+                    <input type="number" name="actualcharge" value="140" class="data-vars"><br>
+                </div>
+                <h3>Promo Code:</h3>
+                <div id="promocode">
+                    <label for="promocodename">Promocode Name: </label>
+                    <input type="text" name="promocodename" value="uber4free" class="data-vars"><br>
+                    <label for="promocodeexpiry">Expires on: </label>
+                    <input type="date" name="promocodeexpiry" value="2017-01-11" class="data-vars"><br>
+                    <label for="promocodelocations">Locations applicable: </label>
+                    <input type="text" name="promocodelocations" class="data-vars" value="Delhi"><br>
+                    <label for="timefrom">Time From: </label>
+                    <input type="time" name="timefrom" class="data-vars" value="13:00"><br>
+                    <label for="timeto">Time to: </label>
+                    <input type="time" name="timeto" class="data-vars" value="15:00"><br>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="Business Logic" class="tabcontent">
+  <h3>Business Logic</h3>
+  <p>Paris is the capital of France.</p>
+</div>
+
+</body>
+</html>

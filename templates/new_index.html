@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unthink Labs Demo - Uber Support Bot</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="static/css/icomoon.css" rel="stylesheet" type="text/css">
+	<link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="static/css/core.css" rel="stylesheet" type="text/css">
+	<link href="static/css/components.css" rel="stylesheet" type="text/css">
+{#	<link href="static/css/colors.css" rel="stylesheet" type="text/css">#}
+{#	<link href="static/css/animate.min.css" rel="stylesheet" type="text/css">#}
+	<!-- /global stylesheets -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<!-- Core JS files -->
+	<script type="text/javascript" src="static/js/pace.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="static/js/dateFormat.min.js"></script>
+    <script type="text/javascript" src="static/js/plugins/forms/tags/tagsinput.min.js"></script>
+	<script type="text/javascript" src="static/js/plugins/forms/tags/tokenfield.min.js"></script>
+	<script type="text/javascript" src="static/js/plugins/ui/prism.min.js"></script>
+	<script type="text/javascript" src="static/js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script type="text/javascript" src="static/js/app.js"></script>
+    <script type="text/javascript" src="static/js/plugins/notifications/pnotify.min.js"></script>
+    <script type="text/javascript" src="static/js/new_index.js"></script>
+    <script type="text/javascript" src="static/js/form_tags_input.js"></script>
+
+	<!-- /theme JS files -->
+{#    <script type="text/javascript" src="static/index.js"></script>#}
+</head>
+
+<body>
+
+{#Page container#}
+<div class="page-container">
+    {#Page content#}
+    <div class="page-cntent">
+
+        {#Content Wrapper#}
+        <div class="content-wrapper-new">
+
+            {#Page Header#}
+            <div class="page-header">
+                <div class="page-header-content">
+                    <div class="page-title">
+                        <h4>
+                            <a href="http://unthink.in">
+                                <span class="text-bold">
+                                    <img src="{{ url_for('static', filename='favicon.ico') }}" style="height: 50px">
+                                </span>
+                            </a>
+
+                                <span class="text-semibold">UNTHINK LABS <span style="font-size: 28px"> | </span> Uber Support Bot </span> - Demo
+                        </h4>
+                    </div>
+                    <div class="heading-elements">
+                        <a href="javascript:void(0)" onclick="location.reload();">
+                            <p><button type="button" class="btn btn-danger btn-lg"><i class="icon-reset position-left"></i>Reset</button></p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            {#Content Area#}
+            <div class="content">
+{#                <div class="row">#}
+                <div class="col-md-6">
+                    <div class="panel panel-flat">
+                        <div class="panel-body">
+                            <ul class="media-list chat-list content-group" style="height: 50vh; padding: 10px;">
+								<li class="media date-step">
+									<span></span>
+								</li>
+                            </ul>
+	                    	<div class="row">
+                                <hr>
+	                    		<div class="col-xs-10">
+                                    <input type="text" name="enter-message" class="form-control content-group" placeholder="Enter your message...">
+	                    		</div>
+
+	                    		<div class="col-xs-2 text-right">
+		                            <button type="button" class="btn bg-teal-400 btn-primary"> Send </button>
+	                    		</div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Natural Language Parsing : Customer's Last Message</h6>
+                            </div>
+                            <div class="panel-body" style="height: 30vh">
+                                <p class="row">
+                                    <span class="control-label col-lg-2 text-bold">TICKET TYPE </span> <span id="intent-value"> </span>
+                                </p>
+                                <p class="row">
+                                    <span class="control-label col-lg-2 text-bold">ENTITIES </span><br>
+                                    <span id="entity-value"></span>
+                                </p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="panel panel-flat">
+                            <div class="panel-heading">
+                                <h6 class="panel-title">Uber Sample Data</h6>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#trip-info" data-toggle="tab">Trip Info</a></li>
+                                        <li><a href="#trip-events" data-toggle="tab">Trip Events</a></li>
+                                        <li><a href="#trip-attributes" data-toggle="tab">Trip Attributes</a></li>
+                                        <li><a href="#promo-code" data-toggle="tab">Promo Code</a></li>
+                                        <li><a href="#general" data-toggle="tab">General Info</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="trip-info">
+                                            <form class="form-horizontal extract" action="#">
+                                                <fieldset class="content-group">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-1 text-right">City </label>
+                                                        <div class="col-lg-3">
+                                                            <input type="text" class="form-control" name="tripcity" value="Delhi">
+                                                        </div>
+                                                        <label class="control-label col-lg-1 text-right">Date </label>
+                                                        <div class="col-lg-3">
+                                                            <input type="date" class="form-control" name="tripdate" value="2017-01-11">
+                                                        </div>
+                                                        <label class="control-label col-lg-1 text-right">Time </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="time" class="form-control" name="triptime" value="14:00">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Payment </label>
+                                                        <div class="col-lg-3">
+                                                            <select name="paymentmethod" class="form-control">
+                                                                <option value="PayTM">PayTM</option>
+                                                                <option value="Credit">Credit Card</option>
+                                                                <option value="Cash">Cash</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-1"></div>
+                                                        <label class="control-label col-lg-2">Type </label>
+                                                        <div class="col-lg-3">
+                                                            <select name="triptype" class="form-control">
+                                                                <option value="UberPool">UberPool</option>
+                                                                <option value="UberX">UberX</option>
+                                                                <option value="UberBlack">UberBlack</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="trip-events">
+                                            <form class="form-horizontal extract" action="#">
+                                                <fieldset class="content-group">
+                                                    <div class="form-group">
+                                                        <legend class="text-bold">Driver Accepted</legend>
+                                                        <label class="control-label col-lg-2">Latitude </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" step="0.00001" class="form-control" name="acceptedlat" value="28.52721">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">Longitude </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" step="0.00001" class="form-control" name="acceptedlng" value="77.06889">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Time </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="time" class="form-control" name="tripacceptedtime" value="14:00">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">ETA </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="eta" value="12">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <legend class="text-bold"> Trip Start </legend>
+                                                        <label class="control-label col-lg-2">Address </label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control" name="startaddress" value="Vasant Kunj, New Delhi">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <legend class="text-bold"> Trip End </legend>
+                                                        <label class="control-label col-lg-2">Address </label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control" name="endaddress" value="M block Market, GK-2, New Delhi">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Destination Latitude </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" step="0.00001" class="form-control" name="endlat" value="28.52727">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">Destination Longitude </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" step="0.00001" class="form-control" name="endlng" value="77.20239">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Actual Latitude </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" step="0.00001" class="form-control" name="actualendlat" value="28.6099">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">Actual Longitude </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" step="0.00001" class="form-control" name="actualendlng" value="77.2299">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="trip-attributes">
+                                            <form class="form-horizontal extract" action="#">
+                                                <fieldset class="content-group">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Promo Code: </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="text" class="form-control" name="promocodeapplied" value="uber4free">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">ETA: </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="remainingeta" value="10">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <legend class="text-bold"> Calculated </legend>
+                                                        <label class="control-label col-lg-2">Distance </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="calculateddistance" value="15">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">Duration </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="calculatedduration" value="30">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <legend class="text-bold"> Actual </legend>
+                                                        <label class="control-label col-lg-2">Distance </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="actualdistance" value="16">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">Duration </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="actualduration" value="33">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <legend class="text-bold">Price</legend>
+                                                        <label class="control-label col-lg-2">Upfront: </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="upfrontprice" value="120">
+                                                        </div>
+                                                        <div class="col-lg-2"></div>
+                                                        <label class="control-label col-lg-2">Charged: </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="number" class="form-control" name="actualcharge" value="140">
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="promo-code">
+                                            <form class="form-horizontal extract" action="#">
+                                                <fieldset class="content-group">
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Code </label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control" name="promocodename" value="uber4free">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Valid Locations </label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control tokenfield" name="promocodelocations" value="Delhi,Mumbai">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Expires On </label>
+                                                        <div class="col-lg-3">
+                                                            <input type="date" class="form-control" name="promocodeexpiry" value="2017-01-11">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-lg-2">Time From: </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="time" class="form-control" name="timefrom" value="13:00">
+                                                        </div>
+                                                        <label class="control-label col-lg-2">Time To: </label>
+                                                        <div class="col-lg-2">
+                                                            <input type="time" class="form-control" name="timeto" value="15:00">
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane" id="general">
+                                            <form class="form-horizontal extract" action="#">
+                                                <fieldset class="content-group">
+                                                    <legend class="text-bold">Customer Data</legend>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
